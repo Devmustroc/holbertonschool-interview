@@ -8,8 +8,7 @@
  *
  * Return: Always 0.
  */
-int main(void)
-{
+int main(void) {
     listint_t *head;
 
     head = NULL;
@@ -32,3 +31,4 @@ int main(void)
     free_listint(head);
 
     return (0);
+}
