@@ -45,45 +45,47 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
  * @parent: pointer to the father node
  * Return: void
  */
- void heap_check_parent(heap_t **son, heap_t **parent)
+void heap_check_parent(heap_t **son, heap_t **parent)
 {
-     heap_t *check_left, *check_right, *child = *son, *father = *parent;
-     check_right = (*son)->right;
-     check_left = (*son)->left;
-     if (child->n > father->n)
-     {
-         if (child->left)
-             child->left->parent = father;
-            if (child->right)
-                child->right->parent = father;
-            if (father->left == child)
-            {
-                if (father->right)
-                    father->right->parent = child;
-                child->right = father->right;
-                child->left = father;
-            }
-            else
-            {
-                if (father->left)
-                    father->left->parent = child;
-                child->left = father->left;
-                child->right = father;
-            }
-            if (father->parent)
-            {
-                if (father->parent->left == father)
-                    father->parent->left = child;
-                else
-                    father->parent->right = child;
-            }
-            else
-                *parent = child;
-            child->parent = father->parent;
-            father->parent = child;
-            father->left = check_left;
-            father->right = check_right;
-     }
+	heap_t *check_left, *check_right, *child = *son, *father = *parent;
+
+	check_right = (*son)->right;
+	check_left = (*son)->left;
+
+	if (child->n > father->n)
+	{
+		if (child->left)
+			child->left->parent = father;
+		if (child->right)
+			child->right->parent = father;
+		if (father->left == child)
+		{
+			if (father->right)
+				father->right->parent = child;
+			child->right = father->right;
+			child->left = father;
+		}
+		else
+		{
+			if (father->left)
+				father->left->parent = child;
+			child->left = father->left;
+			child->right = father;
+		}
+		if (father->parent)
+		{
+			if (father->parent->left == father)
+				father->parent->left = child;
+			else
+				father->parent->right = child;
+		}
+		else
+			*parent = child;
+		child->parent = father->parent;
+		father->parent = child;
+		father->left = check_left;
+		father->right = check_right;
+	}
 }
 /**
 * heap_insert - inserts a value into a Max Binary Heap
@@ -93,44 +95,44 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-    heap_t *new_node;
+	heap_t *new_node;
 
-    if ((*root) == NULL)
-    {
-        *root = binary_tree_node(NULL, value);
-        return (*root);
-    }
-    if (binary_tree_is_perfect(*root) || (!binary_tree_is_perfect((*root)->left)))
-    {
-        if ((*root)->left != NULL)
-        {
-            new_node = heap_insert(&((*root)->left), value);
-            heap_check_parent(&((*root)->left), root);
-            return (new_node);
-        }
-        else
-        {
-            new_node = binary_tree_node(*root, value);
-            (*root)->left = new_node;
-            heap_check_parent(&((*root)->left), root);
-            return (new_node);
-        }
-    }
-    else
-    {
-        if ((*root)->right != NULL)
-        {
-            new_node = heap_insert(&((*root)->right), value);
-            heap_check_parent(&((*root)->right), root);
-            return (new_node);
-        }
-        else
-        {
-            new_node = binary_tree_node(*root, value);
-            (*root)->right = new_node;
-            heap_check_parent(&((*root)->right), root);
-            return (new_node);
-        }
-    }
-    return (NULL);
+	if ((*root) == NULL)
+	{
+		*root = binary_tree_node(NULL, value);
+		return (*root);
+	}
+	if (binary_tree_is_perfect(*root) || (!binary_tree_is_perfect((*root)->left)))
+	{
+		if ((*root)->left != NULL)
+		{
+			new_node = heap_insert(&((*root)->left), value);
+			heap_check_parent(&((*root)->left), root);
+			return (new_node);
+		}
+		else
+		{
+			new_node = binary_tree_node(*root, value);
+			(*root)->left = new_node;
+			heap_check_parent(&((*root)->left), root);
+			return (new_node);
+		}
+	}
+	else
+	{
+		if ((*root)->right != NULL)
+		{
+			new_node = heap_insert(&((*root)->right), value);
+			heap_check_parent(&((*root)->right), root);
+			return (new_node);
+		}
+		else
+		{
+			new_node = binary_tree_node(*root, value);
+			(*root)->right = new_node;
+			heap_check_parent(&((*root)->right), root);
+			return (new_node);
+		}
+	}
+	return (NULL);
 }
