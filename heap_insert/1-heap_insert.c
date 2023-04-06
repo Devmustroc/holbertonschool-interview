@@ -8,16 +8,16 @@
  */
 size_t binary_tree_size(const binary_tree_t *tree)
 {
-    size_t size = 0;
+	size_t size = 0;
 
-    if (tree == NULL)
-        return (0);
-    if (tree->left)
-        size += binary_tree_size(tree->left);
-    if (tree->right)
-        size += binary_tree_size(tree->right);
-    size += 1;
-    return (size);
+	if (tree == NULL)
+		return (0);
+	if (tree->left)
+		size += binary_tree_size(tree->left);
+	if (tree->right)
+		size += binary_tree_size(tree->right);
+	size += 1;
+	return (size);
 }
 /**
 * binary_tree_is_perfect - checks if a binary tree is perfect
@@ -26,18 +26,18 @@ size_t binary_tree_size(const binary_tree_t *tree)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-    int left_size = 0;
-    int right_size = 0;
+	int left_size = 0;
+	int right_size = 0;
 
-    if (tree == NULL)
-        return (0);
-    if (tree == NULL)
-        return (0);
-    left_size = binary_tree_size(tree->left);
-    right_size = binary_tree_size(tree->right);
-    if (left_size == right_size)
-        return (1);
-    return (0);
+	if (tree == NULL)
+		return (0);
+	if (tree == NULL)
+		return (0);
+	left_size = binary_tree_size(tree->left);
+	right_size = binary_tree_size(tree->right);
+	if (left_size == right_size)
+		return (1);
+	return (0);
 }
 /**
 *  heap_check_parent -checks the parent value is greater than the son value
