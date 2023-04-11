@@ -7,6 +7,7 @@ Returns:
     int: The sum of prime factors of the given integer.
 """
 
+
 def minOperations(n):
     if n <= 1:
         return 0
