@@ -1,7 +1,7 @@
 #include "sandpiles.h"
 /**
  * sandpiles_sum - sums two sandpiles and topples until sum is stable
- * @grid: first 3x3 grid of integers to sum, assumed to be stable
+ * @grid1: first 3x3 grid of integers to sum, assumed to be stable
  * @grid2: second 3x3 grid of integers to sum, assumed to be stable
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
@@ -39,9 +39,10 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 /**
 * grid1_unstable - checks stability of grid and sets flags where unstable
  * grid is unstable if any cell is greater than 3
- * @grid: 3x3 grid of integers to check stability
+ * @grid1: 3x3 grid of integers to check stability
  * @flags: 3x3 grid indicating unstable cells
- * return if unstable,  otherwise
+ *
+ * Return: 1 if unstable, 0 otherwise
  */
 int grid1_unstable(int grid1[3][3], int flags[3][3])
 {
@@ -65,7 +66,7 @@ int grid1_unstable(int grid1[3][3], int flags[3][3])
 }
 /**
  * topple - topples unstable cell and distributes sand to neighbors
- * @grid: 3x3 grid of integers to topple
+ * @grid1: 3x3 grid of integers to topple
  * @i: row of cell to topple
  * @j: column of cell to topple
  */
