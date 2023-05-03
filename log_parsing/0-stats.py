@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 """
-Module that parses a log and prints stats to stdout
-
-Usage:
-    ./0-generator.py | ./0-stats.py
+script that reads stdin line by line and computes metrics
 """
 import sys
 
