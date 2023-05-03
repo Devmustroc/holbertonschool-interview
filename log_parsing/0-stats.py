@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-script that reads stdin line by line and computes metrics
+Module that parses a log and prints stats to stdout
 """
 import sys
 
@@ -18,32 +18,3 @@ status_codes = {
 size = 0
 
 
-def print_stats():
-    """
-    Prints the accumulated size and status codes to stdout
-    """
-    print(f"File size: {size}")
-    for status in sorted(status_codes.keys()):
-        if status_codes[status]:
-            print(f"{status}: {status_codes[status]}")
-
-
-if __name__ == "__main__":
-    count = 0
-    try:
-        for line in sys.stdin:
-            try:
-                items = line.split()
-                size += int(items[-1])
-                if items[-2] in status_codes:
-                    status_codes[items[-2]] += 1
-            except:
-                pass
-            if count == 9:
-                print_stats()
-                count = -1
-            count += 1
-    except KeyboardInterrupt:
-        print_stats()
-        raise
-    print_stats()
