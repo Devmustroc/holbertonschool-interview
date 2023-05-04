@@ -3,7 +3,7 @@
 This script reads from the standard input line by line and computes metrics.
 """
 
-from sys import stdin
+from sys import stdin  # standard input
 
 
 STATUS_CODES = {
