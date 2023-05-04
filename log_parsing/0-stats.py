@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """
 This script reads from the standard input line by line and computes metrics.
-
-The metrics computed are the accumulated file size and the frequency of HTTP status codes.
 """
 
 from sys import stdin
