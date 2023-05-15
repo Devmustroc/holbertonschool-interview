@@ -8,6 +8,7 @@
  */
 int check_cycle(listint_t *list)
 {
+    // Floyd's cycle-finding algorithm
 	listint_t *slow = list, *fast = list;
 
 	if (!list)
