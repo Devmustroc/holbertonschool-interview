@@ -9,7 +9,7 @@ def validUTF8(data):
         # Check if the current byte is a continuation byte
         if num & 0b11000000 == 0b10000000:
             if num_bytes == 0:
-                return False  # Invalid continuation byte without a leading byte
+                return False  # Unexpected continuation byte
             num_bytes -= 1
         else:
             if num_bytes != 0:
