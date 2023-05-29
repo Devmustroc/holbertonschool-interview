@@ -8,7 +8,7 @@
 void merge_values(int *line, size_t size)
 {
 	size_t i, merge_index = 0;
-	int merged[size];
+	int merged[LINE_SIZE] = {0};
 
 	for (i = 0; i < size; i++)
 		merged[i] = 0;
@@ -25,14 +25,15 @@ void merge_values(int *line, size_t size)
 			else
 			{
 				line[merge_index] = line[i];
+
 				merge_index++;
 			}
 		}
 	}
-
 	for (i = merge_index; i < size; i++)
 		line[i] = 0;
 }
+
 /**
  * slide_line - Slide and merge the line in the specified direction
  *
