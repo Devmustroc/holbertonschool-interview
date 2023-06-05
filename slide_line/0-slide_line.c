@@ -17,71 +17,41 @@ int slide_line(int *line, size_t size, int direction) {
         return 1;
 
     if (direction == SLIDE_LEFT) {
-        int i, j, merged;
+        int i, j;
+        int merged = 0;
 
         for (i = 0; i < (int)size; i++) {
-            merged = 0;
-
             if (line[i] == 0)
                 continue;
 
-            for (j = i + 1; j < (int)size; j++) {
-                if (line[j] == 0)
-                    continue;
-
-                if (line[i] == line[j]) {
-                    line[i] *= 2;
-                    line[j] = 0;
-                    merged = 1;
-                }
-
-                break;
-            }
-
-            if (merged)
-                continue;
-
-            for (j = i - 1; j >= 0; j--) {
-                if (line[j] != 0)
-                    break;
-
-                line[j] = line[i];
+            if (merged && line[i] == line[j - 1]) {
+                line[j - 1] *= 2;
                 line[i] = 0;
-                i = j;
+                merged = 0;
+            } else {
+                line[j++] = line[i];
+                if (j - 1 != i)
+                    line[i] = 0;
+                merged = 0;
             }
         }
     } else if (direction == SLIDE_RIGHT) {
-        int i, j, merged;
+        int i, j;
+        int merged = 0;
 
-        for (i = (int)size - 1; i >= 0; i--) {
-            merged = 0;
-
+        for (i = (int)size - 1, j = i; i >= 0; i--) {
             if (line[i] == 0)
                 continue;
 
-            for (j = i - 1; j >= 0; j--) {
-                if (line[j] == 0)
-                    continue;
-
-                if (line[i] == line[j]) {
-                    line[i] *= 2;
-                    line[j] = 0;
-                    merged = 1;
-                }
-
-                break;
-            }
-
-            if (merged)
-                continue;
-
-            for (j = i + 1; j < (int)size; j++) {
-                if (line[j] != 0)
-                    break;
-
-                line[j] = line[i];
+            if (merged && line[i] == line[j + 1]) {
+                line[j + 1] *= 2;
                 line[i] = 0;
-                i = j;
+                merged = 0;
+            } else {
+                line[j--] = line[i];
+                if (j + 1 != i)
+                    line[i] = 0;
+                merged = 0;
             }
         }
     }
