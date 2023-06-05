@@ -9,49 +9,66 @@
  *
  * @return 1 on success, 0 on failure.
  */
-int slide_line(int *line, size_t size, int direction) {
-    if (line == NULL || (direction != SLIDE_LEFT && direction != SLIDE_RIGHT))
+int slide_line(int *line, size_t size, int direction)
+{
+    int i, j;
+
+    if (line == NULL || (direction != SLIDE_RIGHT && direction != SLIDE_LEFT))
         return 0;
 
-    if (size < 2)
-        return 1;
-
-    if (direction == SLIDE_LEFT) {
-        int i, j;
-        int merged = 0;
-
-        for (i = 0; i < (int)size; i++) {
-            if (line[i] == 0)
-                continue;
-
-            if (merged && line[i] == line[j - 1]) {
-                line[j - 1] *= 2;
-                line[i] = 0;
-                merged = 0;
-            } else {
-                line[j++] = line[i];
-                if (j - 1 != i)
+    if (direction == SLIDE_LEFT)
+    {
+        for (i = 1, j = 0; i < (int)size; i++)
+        {
+            if (line[i] != 0)
+            {
+                if (line[i] == line[j])
+                {
+                    line[j++] *= 2;
                     line[i] = 0;
-                merged = 0;
+                }
+                else if (line[j] == 0)
+                {
+                    line[j] = line[i];
+                    line[i] = 0;
+                }
+                else
+                {
+                    j++;
+                    if (i != j)
+                    {
+                        line[j] = line[i];
+                        line[i] = 0;
+                    }
+                }
             }
         }
-    } else if (direction == SLIDE_RIGHT) {
-        int i, j;
-        int merged = 0;
-
-        for (i = (int)size - 1, j = i; i >= 0; i--) {
-            if (line[i] == 0)
-                continue;
-
-            if (merged && line[i] == line[j + 1]) {
-                line[j + 1] *= 2;
-                line[i] = 0;
-                merged = 0;
-            } else {
-                line[j--] = line[i];
-                if (j + 1 != i)
+    }
+    else if (direction == SLIDE_RIGHT)
+    {
+        for (i = size - 2, j = size - 1; i >= 0; i--)
+        {
+            if (line[i] != 0)
+            {
+                if (line[i] == line[j])
+                {
+                    line[j--] *= 2;
                     line[i] = 0;
-                merged = 0;
+                }
+                else if (line[j] == 0)
+                {
+                    line[j] = line[i];
+                    line[i] = 0;
+                }
+                else
+                {
+                    j--;
+                    if (i != j)
+                    {
+                        line[j] = line[i];
+                        line[i] = 0;
+                    }
+                }
             }
         }
     }
