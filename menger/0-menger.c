@@ -1,47 +1,53 @@
 #include "menger.h"
-/**
- * menger - draws a 2D Menger Sponge
- * @level: level of the Menger Sponge to draw
- * Return: void
- */
-
-void drawMenger(int level, int x, int y, int size)
+void draw_char(int row, int col, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (row % 3 == 1 && col % 3 == 1)
+        {
+            printf(" ");
+        }
+        else
+        {
+            printf("#");
+        }
+        row /= 3;
+        col /= 3;
+    }
+}
+void draw_menger(int level, int row, int col, int size)
 {
     if (level == 0)
     {
-        printf("#");
-        return;
+        draw_char(row, col, size);
     }
-    int newSize = size / 3;
-    int i, j;
-    for (i = 0; i < 3; i++)
+    else
     {
-        for (j = 0; j < 3; j++)
+        int newSize = size / 3;
+        for (int i = 0; i < 3; i++)
         {
-            if (i == 1 && j == 1)
-                printf(" ");
-            else
-                drawMenger(level - 1, x + i * newSize, y + j * newSize, newSize);
+            for (int j = 0; j< 3; j++)
+            {
+                int newRow = row + i * newSize;
+                int newCol = col + j * newSize;
+                draw_menger(level - 1, newRow, newCol, newSize);
+            }
         }
     }
 }
-/**
- * menger - draws a 2D Menger Sponge
- * @level: level of the Menger Sponge to draw
- * Return: void
- */
 void menger(int level)
 {
     if (level < 0)
-        return;
-    int size = pow(3, level);
-    int i, j;
-    for (i = 0; i < size; i++)
     {
-        for (j = 0; j < size; j++)
+        return;
+    }
+    int size = pow(3, level);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j< size; j++)
         {
-            drawMenger(level, i, j, size);
+            draw_char(i, j, size);
+            printf("\n");
         }
-        printf("\n");
     }
 }
