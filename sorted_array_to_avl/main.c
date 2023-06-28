@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "binary_trees.h"
+
 /**
  * print_array - Prints an array of integers
  *
@@ -15,6 +16,7 @@ void print_array(const int *array, size_t size)
         printf("(%03d)", array[i]);
     printf("\n");
 }
+
 /**
  * main - Entry point
  *
