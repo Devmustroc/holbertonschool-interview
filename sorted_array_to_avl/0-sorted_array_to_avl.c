@@ -20,7 +20,7 @@ avl_t *sorted_array_to_avl_helper(int *array, int start, int end, avl_t *par)
 	if (new_node == NULL)
 		return (NULL);
 	new_node->n = array[mid];
-	new_node->parent = parent;
+	new_node->parent = par;
 	new_node->left = sorted_array_to_avl_helper(array, start, mid - 1, new_node);
 	new_node->right = sorted_array_to_avl_helper(array, mid + 1, end, new_node);
 	return (new_node);
