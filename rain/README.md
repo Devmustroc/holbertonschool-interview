@@ -40,5 +40,3 @@ DevMust@ubuntu:~/rain$ ./0-main.py
 6
 DevMust@ubuntu:~/rain$
 ```
-
-
