@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 """
-calculate how many square units of water
-will be retained after it rains.
+rain
 """
 
 
 def rain(walls: list[int]) -> int:
-    """ Rain """
+    """
+    calculate how many square units of water
+    will be retained after it rains.
+    """
     if not walls:
         return 0
 
