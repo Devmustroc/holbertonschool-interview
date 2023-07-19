@@ -2,10 +2,9 @@
 """
 rain
 """
-from typing import List
 
 
-def rain(walls: list[int]) -> int:
+def rain(walls):
     """
     calculate how many square units of water
     will be retained after it rains.
