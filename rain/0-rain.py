@@ -2,6 +2,7 @@
 """
 rain
 """
+from typing import List
 
 
 def rain(walls: list[int]) -> int:
