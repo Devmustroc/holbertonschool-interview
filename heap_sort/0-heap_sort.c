@@ -37,7 +37,7 @@ void sift_down(int *array, size_t size, size_t start, size_t end)
  *
  * @array: The array to be sorted
  * @size: Number of elements in the array
- */
+ **/
 void heap_sort(int *array, size_t size)
 {
 	if (array == NULL || size <= 1)
@@ -58,3 +58,4 @@ void heap_sort(int *array, size_t size)
 		sift_down(array, size, 0, end - 1);
 	}
 }
+
