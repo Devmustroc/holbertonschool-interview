@@ -40,24 +40,21 @@ void sift_down(int *array, size_t size, size_t start, size_t end)
  */
 void heap_sort(int *array, size_t size)
 {
-	size_t start = (size - 2) / 2;
-	size_t end = size - 1;
+	if (array == NULL || size <= 1)
+		return;
 
-	while (start > 0)
+	size_t start;
+
+	for (start = (size - 2) / 2; (int)start >= 0; start--)
+		sift_down(array, size, start, size - 1);
+
+	for (size_t end = size - 1; end > 0; end--)
 	{
-		sift_down(array, size, start, end);
-		start--;
-	}
-	sift_down(array, size, start, end);
+		int temp = array[0];
 
-	while (end > 0)
-	{
-		int tmp = array[end];
-
-		array[end] = array[0];
-		array[0] = tmp;
+		array[0] = array[end];
+		array[end] = temp;
 		print_array(array, size);
-		end--;
-		sift_down(array, size, start, end);
+		sift_down(array, size, 0, end - 1);
 	}
 }
