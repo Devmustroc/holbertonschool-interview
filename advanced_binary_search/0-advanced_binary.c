@@ -9,12 +9,14 @@
 */
 int advanced_binary_recursive(int *array, int left, int right, int value)
 {
+	int mid;
+
 	if (left > right)
 	{
 		return (-1);
 	}
 
-	int mid = (left + right) / 2;
+	mid = (left + right) / 2;
 
 	printf("Searching in array: ");
 	for (int i = left; i <= right; i++)
