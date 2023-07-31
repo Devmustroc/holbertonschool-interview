@@ -1,3 +1,4 @@
+#include "search_algos.h"
 #include <stdio.h>
 /**
  * advanced_binary_recursive - recursive function to search for a value
@@ -9,22 +10,22 @@
 */
 int advanced_binary_recursive(int *array, int left, int right, int value)
 {
-	int mid;
+	int mid, i;
 
 	if (left > right)
-	{
 		return (-1);
-	}
 
 	mid = (left + right) / 2;
-
 	printf("Searching in array: ");
-	for (int i = left; i <= right; i++)
+
+	i = left;
+
+	while (i <= right)
 	{
 		printf("%d", array[i]);
-
 		if (i != right)
 			printf(", ");
+		i++;
 	}
 	printf("\n");
 
@@ -57,6 +58,5 @@ int advanced_binary(int *array, size_t size, int value)
 	{
 		return (-1);
 	}
-
 	return (advanced_binary_recursive(array, 0, size - 1, value));
 }
