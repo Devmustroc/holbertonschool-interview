@@ -1,49 +1,51 @@
 #include "search_algos.h"
 #include <stdio.h>
+
+/**
+ * print_array - prints an array of integers
+ * @array: pointer to the first element of the array to print
+ * @left: leftmost index of the subarray
+ * @right: rightmost index of the subarray
+ */
+void print_array(int *array, int left, int right)
+{
+	int i;
+
+	printf("Searching in array: ");
+	for (i = left; i <= right; i++)
+	{
+		printf("%d", array[i]);
+		if (i < right)
+			printf(", ");
+	}
+	printf("\n");
+}
 /**
  * advanced_binary_recursive - recursive function to search for a value
  * @array: pointer to the first element of the array to search in
- * @left: leftmost index of the subarray
- * @right: rightmost index of the subarray
+ * @low: leftmost index of the subarray
+ * @high: rightmost index of the subarray
  * @value: value to search for
  * Return: index where value is located, or -1 if not found
 */
-int advanced_binary_recursive(int *array, int left, int right, int value)
+int advanced_binary_recursive(int *array, int low, int high, int value)
 {
-	int mid, i;
+	int mid;
 
-	if (left > right)
+	if (low > high)
 		return (-1);
 
-	mid = (left + right) / 2;
-	printf("Searching in array: ");
+	print_array(array, low, high);
 
-	i = left;
+	mid = low + (high - low) / 2;
 
-	while (i <= right)
-	{
-		printf("%d", array[i]);
-		if (i != right)
-			printf(", ");
-		i++;
-	}
-	printf("\n");
-
-	if (array[mid] == value)
-	{
-		if (mid == left || array[mid - 1] != value)
-			return (mid);
-		else
-			return (advanced_binary_recursive(array, left, mid - 1, value));
-	}
+	if (array[mid] == value && (mid == 0 || array[mid - 1] < value))
+		return (mid);
 	else if (array[mid] < value)
-	{
-		return (advanced_binary_recursive(array, mid + 1, right, value));
-	}
-	else
-	{
-		return (advanced_binary_recursive(array, left, mid - 1, value));
-	}
+		return (advanced_binary_recursive(array, mid + 1, high, value));
+	else if (array[mid] >= value)
+		return (advanced_binary_recursive(array, low, mid, value));
+	return (-1);
 }
 /**
  * advanced_binary - searches for a value in a sorted array of integers
