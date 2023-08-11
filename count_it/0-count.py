@@ -22,7 +22,7 @@ def print_format(count):
 
     for k, v in sorted_count:
         if v > 0:
-            print("{}: {}".format(k, v))
+            print(f"{k}: {v}")
 
 
 def count_words(subreddit, word_list, count={}, after=""):
@@ -30,12 +30,10 @@ def count_words(subreddit, word_list, count={}, after=""):
     Queries the Reddit API, parses the title of all hot articles,
     and prints a sorted count of given keywords
     """
-    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    headers = {'User-agent': 'MyBot'}
+    url = f'https://www.reddit.com/r/{subreddit}/hot.json'
     params = {'after': after}
 
-    result = requests.get(url,
-                          allow_redirects=False,
+    result = requests.get(url, allow_redirects=False,
                           headers=headers,
                           params=params)
 
