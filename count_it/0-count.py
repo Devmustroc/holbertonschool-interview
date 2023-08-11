@@ -1,31 +1,28 @@
 #!/usr/bin/python3
-"""Task Count it!"""
+"""Task 0: Count it!"""
 
 import requests
 
 
-def parse_titles(posts, word_list, counting):
-    """Parse the titles of the posts"""
+def parse_titles(posts, word_list, count):
+    """Parses the titles of the posts and updates the count"""
     for post in posts:
-        title = post['data']['title'].lower()
+        title = post.get('data').get('title').lower().split()
         for word in word_list:
             word = word.lower()
             n = title.count(word)
-            counting[word] = counting.get(word, 0) + n
+            count[word] = count.setdefault(word, 0) + n
 
 
-def print_formatted(count):
-    """Print the count in a formatted way"""
-    if not count:
-        return
+def print_format(count):
+    """
+    Prints the count with the correct format
+    """
+    sorted_count = sorted(count.items(), key=lambda x: (-x[1], x[0]))
 
-    sorted_count = sorted(count.items(), key=lambda x: x[0])
-    sorted_count = sorted(sorted_count, key=lambda x: x[1], reverse=True)
-
-    for key, value in sorted_count:
-        if value == 0:
-            continue
-        print(f"{key}: {value}")
+    for k, v in sorted_count:
+        if v > 0:
+            print("{}: {}".format(k, v))
 
 
 def count_words(subreddit, word_list, count={}, after=""):
@@ -54,4 +51,4 @@ def count_words(subreddit, word_list, count={}, after=""):
     if after is not None:
         count_words(subreddit, word_list, count, after)
     else:
-        print_formatted(count)
+        print_format(count)
