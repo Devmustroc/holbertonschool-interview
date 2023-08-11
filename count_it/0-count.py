@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-"""Count the number of the Reddit API"""
+"""Task Count it!"""
 
 import requests
+
 
 def parse_titles(posts, word_list, counting):
     """Parse the titles of the posts"""
