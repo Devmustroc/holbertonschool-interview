@@ -15,7 +15,7 @@
 * The prototypes of all your functions should be included in your header file called binary_trees.h
 * Don’t forget to push your header file
 * All your header files should be include guarded
-
+----
 ## More Info
 ### Data structures
 Please use the following data structures and types for binary trees. Don’t forget to include them in your header file.
@@ -46,7 +46,7 @@ typedef struct binary_tree_s heap_t;
 Print function
 To match the examples in the tasks, you are given [this function](https://github.com/hs-hq/0x1C.c)
 This function is used only for visualization purposes. You don’t have to push it to your repo. It may not be used during the correction.
-
+----
 ## Tasks
 0. Heap - Extract
 * Write a function that extracts the root node of a Max Binary Heap:
@@ -56,6 +56,7 @@ This function is used only for visualization purposes. You don’t have to push 
 * Once replaced, the heap must be rebuilt if necessary
 * If your function fails, return 0
 Note: In order for the main file to compile, you are provided with [this static library](https://s3.eu-west-3.amazonaws.com/hbtn.intranet.project.files/holbertonschool-low_level_programming/466/libheap.a). This library won’t be used during correction, its only purpose is for testing.
+----
 ```
 alex@/tmp/binary_trees$ cat 0-main.c
 #include <stdlib.h>
