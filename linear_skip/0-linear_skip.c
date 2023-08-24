@@ -1,41 +1,46 @@
 #include "search.h"
-skiplist_t *create_skiplist(int *array, size_t size)
+
+/**
+ * linear_skip - Function that searches for a value
+ * in a sorted skip list of integers
+ *
+ * @list: Pointer to the head of the skip list to search in
+ * @value: The value to search for
+ * Return: A pointer on the first node where value is located
+ */
+skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-    if (array == NULL || size == 0)
-        return (NULL);
+	skiplist_t *tmp = list;
 
-    skiplist_t *head = NULL;
-    skiplist_t *new_node = NULL;
-    size_t i;
+	if (!list)
+		return (NULL);
 
-    head = malloc(sizeof(skiplist_t));
-    if (head == NULL)
-        return (NULL);
+	while (list->express)
+	{
+		tmp = list;
+		list = list->express;
+		printf("Value checked at index [%ld] = [%d]\n",
+				list->index, list->n);
+		if (list->n >= value)
+			break;
+	}
 
-    head->n = array[0];
-    head->index = 0;
-    head->express = NULL;
-    head->next = NULL;
+	if (list->n < value && list->express == NULL)
+	{
+		tmp = list;
+		while (list->next)
+			list = list->next;
+	}
+	printf("Value found between indexes [%ld] and [%ld]\n",
+			tmp->index, list->index);
 
-    new_node = head;
-
-    for (i = 1; i < size ; i++)
-    {
-        new_node->next = malloc(sizeof(skiplist_t));
-        if (new_node->next == NULL)
-        {
-            free_skiplist(head);
-            return (NULL);
-        }
-        new_node->next->n = array[i];
-        new_node->next->index = i;
-        new_node->next->express = NULL;
-        new_node->next->next = NULL;
-        new_node = new_node->next;
-    }
-    return (head);
-}
-void print_skiplist(const skiplist_t *list)
-{
-    const skiplist_t *current = list;
+	while (tmp && tmp->index <= list->index)
+	{
+		printf("Value checked at index [%ld] = [%d]\n",
+				tmp->index, tmp->n);
+		if (tmp->n == value)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
