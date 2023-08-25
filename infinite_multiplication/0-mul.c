@@ -1,105 +1,151 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "holberton.h"
-
+#include <stdio.h>
 /**
-* is_digit - checks if a string is a digit
- * @c: character to check
- * Return: 1 if digit, 0 if not
-*/
+ * is_digit - checks if a character is a digit
+ * @c : the character to check
+ * return 1 if c is a digit, 0 otherwise
+ */
 int is_digit(char c)
 {
-	return (c >= '0' && c <= '9');
+    if (c >= '0' && c <= '9')
+        return (1);
+    return (0);
 }
+
 /**
-* errorAndExit - prints Error and exits.
- * @void: no arguments
- * Return: void
-*/
-void errorAndExit(void)
+ * _strlen - returns the length of a string
+ * @s: the string to check
+ * Return: the length of the string
+ */
+int _strlen(char *s)
 {
-	char error[] = "Error\n";
+    int count = 0;
 
-	for (int i = 0; error[i] != '\0'; i++)
-	{
-		_putchar(error[i]);
-	}
-	exit(98);
+    while (*s++)
+    {
+        count++;
+    }
+
+    return (count);
 }
+
 /**
-* multiply - multiplies two numbers
- * @num1: first number
- * @num2: second number
- * Return: 0 on success, 98 on failure
-*/
-void multiply(char *num1, char *num2)
+ * is_number - checks if a string is a number
+ * @s : the string to check
+ * return 1 if s is a number, 0 otherwise
+ */
+int is_number(char *s)
 {
-	int len1 = 0, len2 = 0;
+    while (*s)
+        if (is_digit(*s++) == 0)
+            return (0);
 
-	while (num1[len1])
-		len1++;
-	while (num2[len2])
-		len2++;
-
-	int lenResult = len1 + len2;
-	int *result = malloc(sizeof(int) * lenResult);
-
-	if (!result)
-		errorAndExit();
-
-	for (int i = len1; i >= 0; i--)
-	{
-		for (int j = len2; j >= 0; j--)
-		{
-			int digit1 = (num1[i] - '0') * (num2[j] - '0');
-			int sum = result[i + j + 1] + digit1;
-
-			result[i + j] += sum / 10;
-			result[i + j + 1] = sum % 10;
-		}
-	}
-
-	int startIndex = 0;
-
-	while (startIndex < lenResult && result[startIndex] == 0)
-		startIndex++;
-
-	if (startIndex == lenResult)
-		_putchar('0');
-	else
-	{
-		for (int i = startIndex; i < lenResult; i++)
-			_putchar(result[i] + '0');
-	}
-	_putchar('\n');
-	free(result);
+    return (1);
 }
+
 /**
- * main - multiplies two numbers
- * @argc: number of arguments
- * @argv: array of arguments
- * Description: multiplies two numbers
- * Return: 0 on success, 98 on failure
-*/
+ * print_message - prints a message
+ * @message: the message to print
+ * Return: Nothing.
+ * @param message
+ */
+void print_message(char *message)
+{
+    while (*message)
+        _putchar(*message++);
+    _putchar('\n');
+}
+
+/**
+ * _memset_with_zero - fills memory with a constant byte
+ * @s: the memory area to fill
+ * @len: the size of the memory to fill
+ */
+void _memset_with_zero(char *s, int len)
+{
+    int i;
+
+    for (i = 0; i < len; i++)
+    {
+        s[i] = '0';
+    }
+}
+
+/**
+ * multiply - multiplies two numbers
+ * @first: the first number
+ * @second: the second number
+ * @len_first: the length of the first number
+ * @len_second: the length of the second number
+ */
+void multiply(char *first, char *second, int len_first, int len_second)
+{
+    int carry, sum, index1 = 0, index2 = 0, n1, n2, i, j;
+    char *result;
+
+    result = malloc((len_first + len_second + 1) * sizeof(char));
+    if (!result)
+        return;
+    _memset_with_zero(result, len_first + len_second);
+    for (i = len_first - 1; i >= 0; i--)
+    {
+        carry = 0;
+        n1 = first[i] - 48;
+        index2 = 0;
+        for (j = len_second - 1; j >= 0; j--)
+        {
+            n2 = second[j] - 48;
+            sum = n1 * n2 + (result[index1 + index2] - 48) + carry;
+            carry = sum / 10;
+            result[index1 + index2] = sum % 10 + 48;
+            index2++;
+        }
+        if (carry > 0)
+            result[index1 + index2] += carry;
+        index1++;
+    }
+    i = _strlen(result) - 1;
+
+    while (i >= 0 && result[i] == '0')
+        i--;
+    if (i == -1)
+    {
+        print_message("0");
+        return;
+    }
+    while (i >= 0)
+    {
+        _putchar(result[i]);
+        i--;
+    }
+    _putchar('\n');
+    free(result);
+}
+
+/**
+ * main - multiplies two positive numbers
+ * @argc: the number of arguments
+ * @argv: the arguments
+ * Return: 0 if success, 98 otherwise
+ */
 int main(int argc, char *argv[])
 {
-	if (argc != 3)
-		errorAndExit();
+    int len1, len2;
 
-	char *num1 = argv[1];
-	char *num2 = argv[2];
+    if (argc != 3 || !is_number(argv[1]) || !is_number(argv[2]))
+    {
+        print_message("Error");
+        exit(98);
+    }
+    len1 = _strlen(argv[1]);
+    len2 = _strlen(argv[2]);
+    if (len1 == 0 || len2 == 0)
+    {
+        print_message("0");
+        return (0);
+    }
 
-	for (int i = 0; num1[i]; i++)
-	{
-		if (!is_digit(num1[i]))
-			errorAndExit();
-	}
-	for (int i = 0; num2[i]; i++)
-	{
-		if (!is_digit(num2[i]))
-			errorAndExit();
-	}
-	multiply(num1, num2);
-	return (0);
+    multiply(argv[1], argv[2], len1, len2);
+
+    return (0);
 }
-

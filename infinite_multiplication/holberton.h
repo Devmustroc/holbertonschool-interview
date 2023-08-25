@@ -1,16 +1,14 @@
-//
-// Created by devmust on 8/25/23.
-//
+#ifndef __HOLBERTON_H__
+#define __HOLBERTON_H__
 
-#ifndef INFINITE_MULTIPLICATION_HOLBERTON_H
-#define INFINITE_MULTIPLICATION_HOLBERTON_H
-
-#include <stdio.h>
 #include <stdlib.h>
 
 int _putchar(char c);
 int is_digit(char c);
-void errorAndExit(void);
-void multiply(char *num1, char *num2);
+int _strlen(char *s);
+int is_number(char *s);
+void print_message(char *message);
+void _memset_with_zero(char *s, int len);
+void multiply(char *first, char *second, int len_first, int len_second);
 
-#endif //INFINITE_MULTIPLICATION_HOLBERTON_H
+#endif
