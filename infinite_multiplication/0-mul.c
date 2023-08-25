@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "holberton.h"
+
 /**
 * is_digit - checks if a string is a digit
  * @c: character to check
@@ -80,7 +81,7 @@ void multiply(char *num1, char *num2)
  * Description: multiplies two numbers
  * Return: 0 on success, 98 on failure
 */
-int main(int argc, int *argv[])
+int main(int argc, char *argv[])
 {
 	if (argc != 3)
 		errorAndExit();
