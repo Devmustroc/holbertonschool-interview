@@ -1,6 +1,13 @@
 #!/usr/bin/python3
+'''Rotate 2D Matrix'''
+
 
 def rotate_2d_matrix(matrix):
+    '''
+    Rotate 2D Matrix
+    :param matrix: 2D Matrix
+    :return: Nothing
+    '''
     n = len(matrix)
     for layer in range(n // 2):
         first = layer
