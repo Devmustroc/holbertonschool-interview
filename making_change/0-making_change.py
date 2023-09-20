@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-Module for making change.
+making change
 """
+
 
 def makeChange(coins, total):
     """Given a pile of coins of different values,
