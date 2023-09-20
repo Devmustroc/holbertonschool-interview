@@ -23,7 +23,6 @@ def makeChange(coins, total):
             count += num_coins
             total -= num_coins * coin
 
-    # Check if total is not zero after processing all coins.
     if total != 0:
         return -1
 
