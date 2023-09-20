@@ -11,14 +11,20 @@ def makeChange(coins, total):
     """
     if total <= 0:
         return 0
+
     coins.sort(reverse=True)
     count = 0
+
     for coin in coins:
         if total <= 0:
             break
         if total >= coin:
-            count += total // coin
-            total = total % coin
+            num_coins = total // coin
+            count += num_coins
+            total -= num_coins * coin
+
+    # Check if total is not zero after processing all coins.
     if total != 0:
         return -1
+
     return count
