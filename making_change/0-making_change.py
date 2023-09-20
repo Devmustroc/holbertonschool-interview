@@ -12,16 +12,14 @@ def makeChange(coins, total):
     if total < 1:
         return 0
 
-    dq = [0] + [-1 for i in range(1, total + 1)]
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0
 
-    for i in coins:
-        if i > total:
-            continue
-        dq[i] = 1
-        for j in range(i + 1, total + 1):
-            if dq[j - i] > 0:
-                if dq[j] == -1:
-                    dq[j] = dq[j - i] + 1
-                else:
-                    dq[j] = min(dq[j - i] + 1, dq[j])
-    return dq[total]
+    for coin in coins:
+        for amount in range(coin, total + 1):
+            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+
+    if dp[total] == float('inf'):
+        return -1
+
+    return dp[total]
