@@ -12,7 +12,7 @@ def makeChange(coins, total):
     if total < 1:
         return 0
 
-    dq = [-1 for i in range(0, total + 1)]
+    dq = [0] + [-1 for i in range(1, total + 1)]
 
     for i in coins:
         if i > total:
