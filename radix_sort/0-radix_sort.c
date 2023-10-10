@@ -56,10 +56,10 @@ void counting_sort(int *array, size_t size, int exp)
  */
 void radix_sort(int *array, size_t size)
 {
+	int max, exp;
+
 	if (array == NULL || size < 2)
 		return;
-
-	int max, exp;
 
 	max = find_max(array, size);
 
