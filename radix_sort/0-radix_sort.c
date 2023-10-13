@@ -1,71 +1,100 @@
+#include <stdlib.h>
 #include "sort.h"
-
 /**
- * find_max - find the max digit in an Array
- * @array: array to search
- * @size: size of array
- * Return: max value in array
+ * sort2 - auxiliary function of radix sort
+ *
+ * @array: array of data to be sorted
+ * @buff: malloc buffer
+ * @size: size of data
+ * @digit: Less significant digit
+ *
+ * Return: No Return
  */
-int find_max(int *array, size_t size)
+void sort2(int *array, int **buff, int size, int digit)
 {
-	int max = array[0];
-	size_t i;
+	int i, j, csize = 10, num;
+	int carr[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int carr2[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-	for (i = 1; i < size; i++)
+	for (i = 0; i < size; i++)
 	{
-		if (array[i] > max)
-			max = array[i];
-	}
-	return (max);
-}
-
-/**
- * counting_sort - sort an array using counting sort algorithm
- * @array: array to sort
- * @size: size of array
- * @exp: exponent
- */
-void counting_sort(int *array, size_t size, int exp)
-{
-	int *output = malloc(sizeof(int) * size);
-	int count[10] = {0};
-	int i;
-
-	for (i = 0; i < (int)size; i++)
-		count[(array[i] / exp) % 10]++;
-
-	for (i = 1; i < 10; i++)
-		count[i] += count[i - 1];
-
-	for (i = (int)size - 1; i >= 0; i--)
-	{
-		output[count[(array[i] / exp) % 10] - 1] = array[i];
-		count[(array[i] / exp) % 10]--;
+		num = array[i];
+		for (j = 0; j < digit; j++)
+			if (j > 0)
+				num = num / 10;
+		num = num % 10;
+		buff[num][carr[num]] = array[i];
+		carr[num] += 1;
 	}
 
-	for (i = 0; i < (int)size; i++)
-		array[i] = output[i];
-
-	free(output);
+	for (i = 0, j = 0; i < csize; i++)
+	{
+		while (carr[i] > 0)
+		{
+			array[j] = buff[i][carr2[i]];
+			carr2[i] += 1, carr[i] -= 1;
+			j++;
+		}
+	}
+	print_array(array, size);
 }
-
 /**
- * radix_sort - sort an array using radix sort algorithm
- * @array: array to sort
- * @size: size of array
+ * sort - auxiliary function of radix sort
+ *
+ * @array: array of data to be sorted
+ * @size: size of data
+ * @digit: Less significant digit
+ *
+ * Return: No Return
+ */
+void sort(int *array, int size, int digit)
+{
+	int carr[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int i, j, num, csize = 10, **buff;
+
+	for (i = 0; i < size; i++)
+	{
+		num = array[i];
+		for (j = 0; j < digit; j++)
+			if (j > 0)
+				num = num / 10;
+		num = num % 10;
+		carr[num] += 1;
+	}
+
+	if (carr[0] == size)
+		return;
+
+	buff = malloc(sizeof(int *) * 10);
+
+	if (!buff)
+		return;
+
+	for (i = 0; i < csize; i++)
+		if (carr[i] != 0)
+			buff[i] = malloc(sizeof(int) * carr[i]);
+
+	sort2(array, buff, size, digit);
+
+	sort(array, size, digit + 1);
+
+	for (i = 0; i < csize; i++)
+		if (carr[i] > 0)
+			free(buff[i]);
+	free(buff);
+}
+/**
+ * radix_sort - sorts an array of integers in ascending order using the Radix
+ * sort algorithm
+ *
+ * @array: array of data to be sorted
+ * @size: size of data
+ *
+ * Return: No Return
  */
 void radix_sort(int *array, size_t size)
 {
-	int max, exp;
-
-	if (array == NULL || size < 2)
+	if (size < 2)
 		return;
-
-	max = find_max(array, size);
-
-	for (exp = 1; max / exp > 0; exp *= 10)
-	{
-		print_array(array, size);
-		counting_sort(array, size, exp);
-	}
+	sort(array, size, 1);
 }
