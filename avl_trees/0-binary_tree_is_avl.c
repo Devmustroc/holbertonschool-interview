@@ -4,6 +4,7 @@
  * max - function that computes the max between two integers.
  * @a: first integer.
  * @b: second integer.
+ * Return: The max between a and b.
  */
 int max(int a, int b)
 {
